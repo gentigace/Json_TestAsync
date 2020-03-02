@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Json_TestAsync.Views.ItemListPage">
+    <ContentPage Title="Home">
+        <ContentPage.ToolbarItems>
+            <ToolbarItem Text="+" Clicked="NewToolbarItem_Clicked" x:Name="Additem"/>               
+        </ContentPage.ToolbarItems>
+        <ListView ItemsSource="{Binding Posts}" VerticalOptions="FillAndExpand" CachingStrategy="RecycleElement" x:Name="postsListView"
+              ItemSelected="OnListViewItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="5,0,5,0" HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+                            <Label Text="{Binding Title}" VerticalTextAlignment="Center" FontSize="Small" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage>
+    <ContentPage Title="Settings">
+      <StackLayout>
+          <Grid ColumnSpacing="8" HorizontalOptions="FillAndExpand">
+            <!--<Button Text="Local Connection" VerticalOptions="Start" Clicked="Button_Clicked_L"/>-->
+            <Switch Toggled="OnToggled_L" HorizontalOptions="Start" Margin="0,20,0,0"/>
+                <Label Text="Switch for local connection" Margin="50,20,0,0" TextColor="Magenta"/></Grid>
+            <Grid><Switch Toggled="OnToggled_R" HorizontalOptions="StartAndExpand"/>
+                <Label Text="Switch for remote connection" Margin="50,0,0,0" TextColor="DarkOliveGreen"/>
+            <!--<Button Text="Remote Connection" VerticalOptions="Start" Clicked="Button_Clicked_R"/>--></Grid>
+        </StackLayout>
+  </ContentPage>
+</TabbedPage>
