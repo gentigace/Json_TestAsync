@@ -26,11 +26,14 @@
       <StackLayout>
           <Grid ColumnSpacing="8" HorizontalOptions="FillAndExpand">
             <!--<Button Text="Local Connection" VerticalOptions="Start" Clicked="Button_Clicked_L"/>-->
-            <Switch Toggled="OnToggled_L" HorizontalOptions="Start" Margin="0,20,0,0"/>
-                <Label Text="Switch for local connection" Margin="50,20,0,0" TextColor="Magenta"/></Grid>
-            <Grid><Switch Toggled="OnToggled_R" HorizontalOptions="StartAndExpand"/>
-                <Label Text="Switch for remote connection" Margin="50,0,0,0" TextColor="DarkOliveGreen"/>
-            <!--<Button Text="Remote Connection" VerticalOptions="Start" Clicked="Button_Clicked_R"/>--></Grid>
+            <CheckBox CheckedChanged="OnCheckedChanged_L" HorizontalOptions="Start" Margin="0,20,0,0"/>
+                <Label Text="Checkbox for local connection" Margin="50,20,0,0" TextColor="Magenta"/>
+          </Grid>
+          <Grid>
+            <CheckBox CheckedChanged="OnCheckedChanged_R" HorizontalOptions="StartAndExpand"/>
+                <Label Text="Checkbox for remote connection" Margin="50,0,0,0" TextColor="DarkOliveGreen"/>
+            <!--<Button Text="Remote Connection" VerticalOptions="Start" Clicked="Button_Clicked_R"/>-->
+          </Grid>
         </StackLayout>
   </ContentPage>
 </TabbedPage>

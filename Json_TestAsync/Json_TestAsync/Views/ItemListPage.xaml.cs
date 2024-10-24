@@ -13,16 +13,6 @@ namespace Json_TestAsync.Views
     public partial class ItemListPage
     {
         ItemListViewModel itemListViewModel;
-        async void NewToolbarItem_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new NewPostPage
-            {
-                BindingContext = new Post()
-            });
-        }
-        private void PostsListView_ItemSelected(object sender, EventArgs e) { }
-
-
 
         public ItemListPage()
         {
@@ -31,30 +21,52 @@ namespace Json_TestAsync.Views
             BindingContext = itemListViewModel;
         }
 
+        // Called when the page appears
         protected override async void OnAppearing()
         {
-
             base.OnAppearing();
             postsListView.ItemsSource = await App.Database.GetPostAsync();
-
         }
 
-        // Local connection using SQLite ;
-        async void OnToggled_L(object sender, EventArgs e)
+        // Add new post through toolbar button
+        async void NewToolbarItem_Clicked(object sender, EventArgs e)
         {
-            postsListView.ItemsSource = await App.Database.GetPostAsync();
-            Additem.IsEnabled = true;
+            await Navigation.PushAsync(new NewPostPage
+            {
+                BindingContext = new Post()
+            });
         }
 
-        // Remote connection using jsonplaceholder.typicode.com/posts;
-        async void OnToggled_R(object sender, EventArgs e)
+        // Local connection using SQLite (Triggered when the local connection checkbox is checked/unchecked)
+        async void OnCheckedChanged_L(object sender, CheckedChangedEventArgs e)
         {
-            await itemListViewModel.UpdatePostsAsync();
-            postsListView.ItemsSource = await itemListViewModel.Fetchpost();
-            Additem.IsEnabled = false;
+            if (e.Value) // If checkbox is checked
+            {
+                postsListView.ItemsSource = await App.Database.GetPostAsync();
+                Additem.IsEnabled = true;
+            }
+            else
+            {
+                // Handle unchecked state if needed
+            }
         }
 
+        // Remote connection using jsonplaceholder.typicode.com/posts (Triggered when the remote connection checkbox is checked/unchecked)
+        async void OnCheckedChanged_R(object sender, CheckedChangedEventArgs e)
+        {
+            if (e.Value) // If checkbox is checked
+            {
+                await itemListViewModel.UpdatePostsAsync();
+                postsListView.ItemsSource = await itemListViewModel.Fetchpost();
+                Additem.IsEnabled = false;
+            }
+            else
+            {
+                // Handle unchecked state if needed
+            }
+        }
 
+        // Handle item selection from the list
         async void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
